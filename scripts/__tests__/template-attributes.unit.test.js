@@ -1,3 +1,7 @@
+jest.mock('fs');
+jest.mock('mjml');
+jest.mock('path');
+
 const path = require('path');
 const fs = require('fs');
 const mjml = require('mjml');
