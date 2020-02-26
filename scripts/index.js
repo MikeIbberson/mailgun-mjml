@@ -1,17 +1,35 @@
 #!/usr/bin/env node
 require('dotenv').config();
-const builder = require('./build-mjml');
-const uploader = require('./sync-mailgun');
+const path = require('path');
+const { dirname, trace } = require('minimist')(
+  process.argv.slice(2),
+);
+
+const mg = require('./mailgun');
+const walk = require('./template-walker');
+
+if (!dirname)
+  throw new Error(
+    '--dirname flag required to find templates',
+  );
 
 const {
-  MAILGUN_ACCESS_TOKEN: token,
-  MAILGUN_DOMAIN: domain,
+  MAILGUN_ACCESS_TOKEN,
+  MAILGUN_DOMAIN,
 } = process.env;
 
-const { add } = uploader(domain, token);
+const templates = walk(path.join(process.cwd(), dirname));
+const upload = mg(MAILGUN_DOMAIN, MAILGUN_ACCESS_TOKEN);
 
-builder()
-  .then(add)
+const showTrace = (v) =>
+  trace ? v : 'Use the --trace flag for more details';
+
+Promise.all(templates.map(upload))
+  .then((r) => {
+    console.log('Upload completed:', showTrace(r));
+    process.exit(0);
+  })
   .catch((r) => {
-    console.log(r);
+    console.log('Upload failed:', showTrace(r));
+    process.exit(1);
   });

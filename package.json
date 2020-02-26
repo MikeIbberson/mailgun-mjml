@@ -5,11 +5,12 @@
   "license": "MIT",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "minimist": "^1.2.0",
     "mjml": "^4.5.1",
     "request": "^2.88.2"
   },
   "scripts": {
-    "dev": "nodemon scripts --example"
+    "dev": "nodemon scripts --dirname=__fixtures__"
   },
   "bin": {
     "mailgun-mjml": "./scripts/index.js"
