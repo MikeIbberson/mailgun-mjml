@@ -1,0 +1,33 @@
+{
+  "name": "mailgun-mjml",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "minimist": "^1.2.0",
+    "mjml": "^4.5.1",
+    "request": "^2.88.2"
+  },
+  "scripts": {
+    "dev": "nodemon scripts --dirname=__fixtures__",
+    "lint": "eslint scripts/** --fix",
+    "test": "jest --collectCoverage"
+  },
+  "bin": {
+    "mailgun-mjml": "./scripts/index.js"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "6.4.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-node-3merge": "1.0.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-jest": "22.17.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "jest": "^24.9.0",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1"
+  }
+}
