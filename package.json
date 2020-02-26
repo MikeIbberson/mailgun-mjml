@@ -10,7 +10,9 @@
     "request": "^2.88.2"
   },
   "scripts": {
-    "dev": "nodemon scripts --dirname=__fixtures__"
+    "dev": "nodemon scripts --dirname=__fixtures__",
+    "lint": "eslint scripts/** --fix",
+    "test": "jest --collectCoverage"
   },
   "bin": {
     "mailgun-mjml": "./scripts/index.js"
