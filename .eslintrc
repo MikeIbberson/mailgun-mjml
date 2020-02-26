@@ -1,0 +1,8 @@
+{
+  "extends": [
+    "node-3merge"
+  ],
+  "rules": {
+    "no-console": 0
+  }
+}
