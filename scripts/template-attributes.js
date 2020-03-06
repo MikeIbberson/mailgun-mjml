@@ -12,7 +12,7 @@ module.exports = (filename, filepath) => ({
   },
 
   get templateName() {
-    return this.isMjml
+    return this.isMjml && !filename.startsWith('__')
       ? path.basename(filename, this.extension)
       : null;
   },
@@ -21,6 +21,7 @@ module.exports = (filename, filepath) => ({
     return this.templateName
       ? mjml(fs.readFileSync(filepath, 'utf-8'), {
           beautify: true,
+          filePath: path.resolve(filepath),
         }).html
       : null;
   },

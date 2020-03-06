@@ -1,6 +1,8 @@
 const request = require('request');
 const { promisify, asForm } = require('./utils');
 
+const VERSION = 'mjml';
+
 module.exports = (domain, key) => {
   const URL = `https://api:${key}@api.mailgun.net/v3/${domain}/templates`;
 
@@ -12,7 +14,7 @@ module.exports = (domain, key) => {
       request.put,
       // assuming only this script has been involved
       // otherwise, many more versions might exist
-      `${URL}/${templateName}/versions/initial`,
+      `${URL}/${templateName}/versions/${VERSION}`,
       asForm({
         template: html,
       }),
@@ -24,8 +26,9 @@ module.exports = (domain, key) => {
       URL,
       asForm({
         name: templateName,
-        description: 'Coming soon',
+        description: 'Uploaded via API',
         template: html,
+        tag: VERSION,
       }),
     );
 
@@ -34,8 +37,13 @@ module.exports = (domain, key) => {
       template.templateName,
     );
 
-    return exists && exists.body && exists.body.template
-      ? create(template)
-      : modifyTemplateByName(template);
+    const checkBody =
+      exists &&
+      exists.body &&
+      JSON.parse(exists.body).template;
+
+    return checkBody
+      ? modifyTemplateByName(template)
+      : create(template);
   };
 };
