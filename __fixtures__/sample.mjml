@@ -2,7 +2,7 @@
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-text>Fixture!</mj-text>
+        <mj-text>{{foo}}</mj-text>
       </mj-column>
     </mj-section>
   </mj-body>

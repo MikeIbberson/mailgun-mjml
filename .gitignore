@@ -3,3 +3,4 @@ node_modules
 templates
 dist
 .env
+tmp
